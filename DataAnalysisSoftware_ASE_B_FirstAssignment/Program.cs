@@ -16,7 +16,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Startup());
         }
     }
 }
