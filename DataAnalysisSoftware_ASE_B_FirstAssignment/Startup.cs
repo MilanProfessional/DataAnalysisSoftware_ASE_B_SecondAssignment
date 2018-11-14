@@ -158,5 +158,22 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 "Version 1.0.8 Freeware"
                 );
         }
+
+        private void homeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new HomePage().Show();
+        }
+
+        private void restartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Startup().Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
