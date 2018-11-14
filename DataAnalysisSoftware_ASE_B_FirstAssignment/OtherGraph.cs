@@ -11,60 +11,45 @@ using ZedGraph;
 
 namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
-    public partial class ViewGraph : Form
+    public partial class OtherGraph : Form
     {
         public static Dictionary<string, List<string>> _hrData;
-        public ViewGraph()
+        public OtherGraph()
         {
             InitializeComponent();
-        }
-
-        private void ViewGraph_Load(object sender, EventArgs e)
-        {
             plotGraph();
-            SetSize();
         }
-
-        //private int[] buildTeamAData()
-        //{
-        //    int[] goalsScored = new int[10];
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        goalsScored[i] = (i + 1) * 10;
-        //    }
-        //    return goalsScored;
-        //}
-
-        //private int[] buildTeamBData()
-        //{
-        //    int[] goalsScored = new int[10];
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        goalsScored[i] = (i + 10) * 11;
-        //    }
-        //    return goalsScored;
-        //}
 
         private void plotGraph()
         {
-            GraphPane myPane = zedGraphControl1.GraphPane;
-            myPane.Title = "Overview";
-            myPane.XAxis.Title = "Time (second)";
-            myPane.YAxis.Title = "Data";
+            GraphPane speedPane = zedGraphControl1.GraphPane;
+            GraphPane heartRatePane = zedGraphControl2.GraphPane;
+            GraphPane cadencePane = zedGraphControl3.GraphPane;
+            GraphPane powerPane = zedGraphControl4.GraphPane;
+
+
+            // Set the Titles
+            speedPane.Title = "Overview";
+            speedPane.XAxis.Title = "Time in second";
+            speedPane.YAxis.Title = "Data";
+
+            heartRatePane.Title = "Overview";
+            heartRatePane.XAxis.Title = "Time in second";
+            heartRatePane.YAxis.Title = "Data";
+
+            cadencePane.Title = "Overview";
+            cadencePane.XAxis.Title = "Time in second";
+            cadencePane.YAxis.Title = "Data";
+
+            powerPane.Title = "Overview";
+            powerPane.XAxis.Title = "Time in second";
+            powerPane.YAxis.Title = "Data";
+
             PointPairList cadencePairList = new PointPairList();
             PointPairList altitudePairList = new PointPairList();
             PointPairList heartPairList = new PointPairList();
             PointPairList powerPairList = new PointPairList();
 
-            //PointPairList teamAPairList = new PointPairList();
-            //PointPairList teamBPairList = new PointPairList();
-            //int[] teamAData = buildTeamAData();
-            //int[] teamBData = buildTeamBData();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    teamAPairList.Add(i, teamAData[i]);
-            //    teamBPairList.Add(i, teamBData[i]);
-            //}
 
             for (int i = 0; i < _hrData["cadence"].Count; i++)
             {
@@ -86,25 +71,28 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 powerPairList.Add(i, Convert.ToInt16(_hrData["watt"][i]));
             }
 
-            //LineItem teamACurve = myPane.AddCurve("Team A",
-            //       teamAPairList, Color.Red, SymbolType.Diamond);
+            LineItem cadence = cadencePane.AddCurve("Cadence",
+                    cadencePairList, Color.Red, SymbolType.None);
+            //cadence.Symbol.Fill = new Fill(new Color[] { Color.Blue, Color.Green, Color.Red });
 
-            //LineItem teamBCurve = myPane.AddCurve("Team B",
-            //      teamBPairList, Color.Blue, SymbolType.Circle);
-
-            LineItem cadence = myPane.AddCurve("Cadence",
-                   cadencePairList, Color.Red, SymbolType.None);
-
-            LineItem altitude = myPane.AddCurve("Altitude",
+            LineItem altitude = speedPane.AddCurve("Altitude",
                   altitudePairList, Color.Cyan, SymbolType.None);
 
-            LineItem heart = myPane.AddCurve("Heart",
+            LineItem heart = heartRatePane.AddCurve("Heart",
                    heartPairList, Color.Black, SymbolType.None);
 
-            LineItem power = myPane.AddCurve("Power",
+            LineItem power = powerPane.AddCurve("Power",
                   powerPairList, Color.DarkGreen, SymbolType.None);
 
             zedGraphControl1.AxisChange();
+            zedGraphControl2.AxisChange();
+            zedGraphControl3.AxisChange();
+            zedGraphControl4.AxisChange();
+        }
+
+        private void OtherGraph_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void SetSize()
@@ -113,9 +101,20 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl1.IsShowPointValues = true;
             zedGraphControl1.Size = new Size(this.ClientRectangle.Width - 20, this.ClientRectangle.Height - 50);
 
+            zedGraphControl2.Location = new Point(0, 0);
+            zedGraphControl2.IsShowPointValues = true;
+            zedGraphControl2.Size = new Size(this.ClientRectangle.Width - 20, this.ClientRectangle.Height - 50);
+
+            zedGraphControl3.Location = new Point(0, 0);
+            zedGraphControl3.IsShowPointValues = true;
+            zedGraphControl3.Size = new Size(this.ClientRectangle.Width - 20, this.ClientRectangle.Height - 50);
+
+            zedGraphControl4.Location = new Point(0, 0);
+            zedGraphControl4.IsShowPointValues = true;
+            zedGraphControl4.Size = new Size(this.ClientRectangle.Width - 20, this.ClientRectangle.Height - 50);
         }
 
-        private void ViewGraph_Resize(object sender, EventArgs e)
+        private void OtherGraph_Resize(object sender, EventArgs e)
         {
             SetSize();
         }
@@ -123,12 +122,6 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
-           // new Startup().Show();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -153,6 +146,12 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             Application.Exit();
         }
 
+        //private void homeToolStripMenuItem1_Click(object sender, EventArgs e)
+        //{
+        //    this.Hide();
+        //    new HomePage().Show();
+        //}
+
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_hrData.Count < 1)
@@ -164,8 +163,8 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             else
             {
                 this.Close();
-                OtherGraph._hrData = _hrData;
-                new OtherGraph().Show();
+                ViewGraph._hrData = _hrData;
+                new ViewGraph().Show();
             }
         }
     }

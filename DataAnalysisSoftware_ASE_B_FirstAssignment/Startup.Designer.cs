@@ -48,6 +48,7 @@
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -218,7 +219,8 @@
             // 
             this.viewToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.graphToolStripMenuItem});
+            this.graphToolStripMenuItem,
+            this.allGraphToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -227,8 +229,8 @@
             // 
             this.graphToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.graphToolStripMenuItem.Text = "Graph";
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.graphToolStripMenuItem.Text = "Mix Graph";
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
@@ -247,6 +249,14 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.helpToolStripMenuItem.Text = "Developer Info";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // allGraphToolStripMenuItem
+            // 
+            this.allGraphToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
+            this.allGraphToolStripMenuItem.Name = "allGraphToolStripMenuItem";
+            this.allGraphToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.allGraphToolStripMenuItem.Text = "Individual Graph";
+            this.allGraphToolStripMenuItem.Click += new System.EventHandler(this.allGraphToolStripMenuItem_Click);
             // 
             // Startup
             // 
@@ -300,6 +310,7 @@
         private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem homeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allGraphToolStripMenuItem;
     }
 }
 

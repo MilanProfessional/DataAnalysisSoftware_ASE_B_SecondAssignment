@@ -55,6 +55,12 @@
     <Compile Include="HomePage.Designer.cs">
       <DependentUpon>HomePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="OtherGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OtherGraph.Designer.cs">
+      <DependentUpon>OtherGraph.cs</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </Compile>
     <EmbeddedResource Include="HomePage.resx">
       <DependentUpon>HomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OtherGraph.resx">
+      <DependentUpon>OtherGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Startup.resx">
       <DependentUpon>Startup.cs</DependentUpon>

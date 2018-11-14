@@ -145,7 +145,19 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            if (_hrData.Count < 1)
+            {
+                MessageBox.Show("No Data Exist ! ! !" + Environment.NewLine + 
+                    "Enter Data First."
+                    );
+            }
+            else
+            {
+                
+                ViewGraph._hrData = _hrData;
+                new ViewGraph().Show();
+            }
+           
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -174,6 +186,26 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void allGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (_hrData.Count < 1)
+            {
+                MessageBox.Show("No Data Exist ! ! !" + Environment.NewLine +
+                    "Enter Data First."
+                    );
+            }
+            else
+            {
+
+                OtherGraph._hrData = _hrData;
+                new OtherGraph().Show();
+            }
+
+
+            
         }
     }
 }
