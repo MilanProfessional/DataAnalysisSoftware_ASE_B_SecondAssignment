@@ -46,9 +46,10 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblStartTimeUnit = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -65,6 +66,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(548, 94);
             this.dataGridView2.TabIndex = 19;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // dataGridView1
             // 
@@ -233,6 +235,14 @@
             this.graphToolStripMenuItem.Text = "Mix Graph";
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
+            // allGraphToolStripMenuItem
+            // 
+            this.allGraphToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
+            this.allGraphToolStripMenuItem.Name = "allGraphToolStripMenuItem";
+            this.allGraphToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.allGraphToolStripMenuItem.Text = "Individual Graph";
+            this.allGraphToolStripMenuItem.Click += new System.EventHandler(this.allGraphToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
@@ -250,13 +260,18 @@
             this.helpToolStripMenuItem.Text = "Developer Info";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
-            // allGraphToolStripMenuItem
+            // lblStartTimeUnit
             // 
-            this.allGraphToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
-            this.allGraphToolStripMenuItem.Name = "allGraphToolStripMenuItem";
-            this.allGraphToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.allGraphToolStripMenuItem.Text = "Individual Graph";
-            this.allGraphToolStripMenuItem.Click += new System.EventHandler(this.allGraphToolStripMenuItem_Click);
+            this.lblStartTimeUnit.AutoSize = true;
+            this.lblStartTimeUnit.BackColor = System.Drawing.Color.Transparent;
+            this.lblStartTimeUnit.Font = new System.Drawing.Font("Comic Sans MS", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStartTimeUnit.ForeColor = System.Drawing.Color.Cornsilk;
+            this.lblStartTimeUnit.Location = new System.Drawing.Point(263, 50);
+            this.lblStartTimeUnit.Name = "lblStartTimeUnit";
+            this.lblStartTimeUnit.Size = new System.Drawing.Size(73, 30);
+            this.lblStartTimeUnit.TabIndex = 11;
+            this.lblStartTimeUnit.Text = "hahah";
+            this.lblStartTimeUnit.Visible = false;
             // 
             // Startup
             // 
@@ -272,6 +287,7 @@
             this.Controls.Add(this.lblSMode);
             this.Controls.Add(this.lblMonitor);
             this.Controls.Add(this.lblInterval);
+            this.Controls.Add(this.lblStartTimeUnit);
             this.Controls.Add(this.lblStartTime);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -279,6 +295,7 @@
             this.Name = "Startup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Data Analysis Software";
+            this.Load += new System.EventHandler(this.Startup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -311,6 +328,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem homeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allGraphToolStripMenuItem;
+        private System.Windows.Forms.Label lblStartTimeUnit;
     }
 }
 

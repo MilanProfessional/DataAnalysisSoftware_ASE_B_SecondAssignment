@@ -65,8 +65,8 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                     }
                 }
 
-
-                lblStartTime.Text = "Start Time" + "= " + _param["StartTime"];
+                //To extract file from source and shhowing them
+                lblStartTime.Text = "Start Time" + "= " + _param["StartTime"]; lblStartTimeUnit.Show();
                 lblInterval.Text = "Interval" + "= " + _param["Interval"];
                 lblMonitor.Text = "Monitor" + "= " + _param["Monitor"];
                 lblSMode.Text = "SMode" + "= " + _param["SMode"];
@@ -124,23 +124,25 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
         private void InitGrid()
         {
+
+            //Showing data on grid
             dataGridView1.ColumnCount = 4;
-            dataGridView1.Columns[0].Name = "Cadence";
-            dataGridView1.Columns[1].Name = "Altitude";
-            dataGridView1.Columns[2].Name = "Heart rate";
-            dataGridView1.Columns[3].Name = "Power in watts";
+            dataGridView1.Columns[0].Name = "Cadence (RPM)";
+            dataGridView1.Columns[1].Name = "Altitude (m/ft)";
+            dataGridView1.Columns[2].Name = "Heart rate (BPM)";
+            dataGridView1.Columns[3].Name = "Power (Watts)";
 
             dataGridView2.ColumnCount = 10;
-            dataGridView2.Columns[0].Name = "Total distance covered";
-            dataGridView2.Columns[1].Name = "Average speed";
-            dataGridView2.Columns[2].Name = "Maximum speed";
-            dataGridView2.Columns[3].Name = "Average heart rate";
-            dataGridView2.Columns[4].Name = "Maximum heart rate";
-            dataGridView2.Columns[5].Name = "Minimum heart rate";
-            dataGridView2.Columns[6].Name = "Average power";
-            dataGridView2.Columns[7].Name = "Maximum power";
-            dataGridView2.Columns[8].Name = "Average altitude";
-            dataGridView2.Columns[9].Name = "Maximum altitude";
+            dataGridView2.Columns[0].Name = "Total distance covered (KM)";
+            dataGridView2.Columns[1].Name = "Average speed (Km/Hr)";
+            dataGridView2.Columns[2].Name = "Maximum speed (Km/Hr)";
+            dataGridView2.Columns[3].Name = "Average heart rate (BPM)";
+            dataGridView2.Columns[4].Name = "Maximum heart rate (BPM)";
+            dataGridView2.Columns[5].Name = "Minimum heart rate (BPM)";
+            dataGridView2.Columns[6].Name = "Average power (Watts)";
+            dataGridView2.Columns[7].Name = "Maximum power (Watts)";
+            dataGridView2.Columns[8].Name = "Average altitude(m/ft)";
+            dataGridView2.Columns[9].Name = "Maximum altitude(m/ft)";
         }
 
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
@@ -185,12 +187,20 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult dialogResult = MessageBox.Show("Do You want to quit ?", "Quit", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+
+            }
         }
 
         private void allGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            //handling error while viewing graph without opening file.
             if (_hrData.Count < 1)
             {
                 MessageBox.Show("No Data Exist ! ! !" + Environment.NewLine +
@@ -206,6 +216,16 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
 
             
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Startup_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
