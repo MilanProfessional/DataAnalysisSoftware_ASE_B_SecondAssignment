@@ -15,6 +15,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
     public partial class Startup : Form
     {
         private int count = 2;
+        private string endTime;
         private Dictionary<string, List<string>> _hrData = new Dictionary<string, List<string>>();
         private Dictionary<string, string> _param = new Dictionary<string, string>();
 
@@ -76,7 +77,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 /*lblStartTimeUnit.Show();*/
                 lblMonitor.Text = "Monitor" + "= " + Regex.Replace(_param["Monitor"], @"\t|\n|\r", "") + " " ; 
                 lblSMode.Text = "SMode" + "= " + _param["SMode"];
-                lblDate.Text = "Date" + "= " + _param["Date"];
+                lblDate.Text = "Date" + "= " + ConvertToDate(_param["Date"]);
                 lblLength.Text = "Length" + "= " + _param["Length"];
                 lblWeight.Text = "Weight" + "= " + Regex.Replace(_param["Weight"], @"\t|\n|\r", "") + " KG";
 
@@ -105,7 +106,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                         speed.Add(value[4]);
 
                         if (temp > 2) dateTime = dateTime.AddSeconds(Convert.ToInt32(_param["Interval"]));
-
+                        endTime = dateTime.TimeOfDay.ToString();
                         string[] hrData = new string[] { value[0], value[1], value[2], value[3], value[4], dateTime.TimeOfDay.ToString() };
                         dataGridView1.Rows.Add(hrData);
                     }
@@ -117,8 +118,14 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 _hrData.Add("watt", watt);
                 _hrData.Add("speed", speed);
 
-                string totalDistanceCovered = Summary.FindSum(_hrData["cadence"]).ToString();
+                double startDate = TimeSpan.Parse(_param["StartTime"]).TotalSeconds;
+                double endDate = TimeSpan.Parse(endTime).TotalSeconds;
+                double totalTime = endDate - startDate;
+
+                //string totalDistanceCovered = Summary.FindSum(_hrData["cadence"]).ToString();
+
                 string averageSpeed = Summary.FindAverage(_hrData["cadence"]).ToString();
+                string totalDistanceCovered = (Convert.ToDouble(averageSpeed) * totalTime).ToString();
                 string maxSpeed = Summary.FindMax(_hrData["cadence"]).ToString();
 
                 string averageHeartRate = Summary.FindAverage(_hrData["heartRate"]).ToString();
@@ -137,6 +144,31 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 // radioButton2.Checked = true;
                 checkBox2.Checked = true;
             }
+        }
+        private string ConvertToDate(string date)
+        {
+            string year = "";
+            string month = "";
+            string day = "";
+
+            for (int i = 0; i < 4; i++)
+            {
+                year = year + date[i];
+            };
+
+            for (int i = 4; i < 6; i++)
+            {
+                month = month + date[i];
+            };
+
+            for (int i = 6; i < 8; i++)
+            {
+                day = day + date[i];
+            };
+
+            string convertedDate = year + "-" + month + "-" + day;
+
+            return convertedDate;
         }
 
         private void InitGrid()
