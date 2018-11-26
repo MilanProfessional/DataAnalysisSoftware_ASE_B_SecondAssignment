@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
     public partial class Startup : Form
     {
+        private int count = 2;
         private Dictionary<string, List<string>> _hrData = new Dictionary<string, List<string>>();
         private Dictionary<string, string> _param = new Dictionary<string, string>();
 
@@ -66,33 +68,45 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 }
 
                 //To extract file from source and shhowing them
-                lblStartTime.Text = "Start Time" + "= " + _param["StartTime"]; lblStartTimeUnit.Show();
-                lblInterval.Text = "Interval" + "= " + _param["Interval"];
-                lblMonitor.Text = "Monitor" + "= " + _param["Monitor"];
+                //lblStartTime.AutoSize = false;
+                //lblStartTime.Size = new Size(2000, 50);
+                
+                lblStartTime.Text = "Start Time" + "= " + Regex.Replace(_param["StartTime"], @"\t|\n|\r", "") + " ";
+                lblInterval.Text = "Interval" + "= " + Regex.Replace(_param["Interval"], @"\t|\n|\r", "") + " Sec ";
+                /*lblStartTimeUnit.Show();*/
+                lblMonitor.Text = "Monitor" + "= " + Regex.Replace(_param["Monitor"], @"\t|\n|\r", "") + " " ; 
                 lblSMode.Text = "SMode" + "= " + _param["SMode"];
                 lblDate.Text = "Date" + "= " + _param["Date"];
                 lblLength.Text = "Length" + "= " + _param["Length"];
-                lblWeight.Text = "Weight" + "= " + _param["Weight"];
+                lblWeight.Text = "Weight" + "= " + Regex.Replace(_param["Weight"], @"\t|\n|\r", "") + " KG";
 
                 List<string> cadence = new List<string>();
                 List<string> altitude = new List<string>();
                 List<string> heartRate = new List<string>();
                 List<string> watt = new List<string>();
+                List<string> speed = new List<string>();
 
                 //adding data for datagrid
                 var splittedHrData = SplitStringByEnter(splittedString[11]);
+                DateTime dateTime = DateTime.Parse(_param["StartTime"]);
+
+                int temp = 0;
                 foreach (var data in splittedHrData)
                 {
+                    temp++;
                     var value = SplitStringBySpace(data);
 
-                    if (value.Length >= 4)
+                    if (value.Length >= 5)
                     {
                         cadence.Add(value[0]);
                         altitude.Add(value[1]);
                         heartRate.Add(value[2]);
                         watt.Add(value[3]);
+                        speed.Add(value[4]);
 
-                        string[] hrData = new string[] { value[0], value[1], value[2], value[3] };
+                        if (temp > 2) dateTime = dateTime.AddSeconds(Convert.ToInt32(_param["Interval"]));
+
+                        string[] hrData = new string[] { value[0], value[1], value[2], value[3], value[4], dateTime.TimeOfDay.ToString() };
                         dataGridView1.Rows.Add(hrData);
                     }
                 }
@@ -101,6 +115,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 _hrData.Add("altitude", altitude);
                 _hrData.Add("heartRate", heartRate);
                 _hrData.Add("watt", watt);
+                _hrData.Add("speed", speed);
 
                 string totalDistanceCovered = Summary.FindSum(_hrData["cadence"]).ToString();
                 string averageSpeed = Summary.FindAverage(_hrData["cadence"]).ToString();
@@ -119,6 +134,8 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 string[] summarydata = new string[] { totalDistanceCovered, averageSpeed, maxSpeed, averageHeartRate, maximumHeartRate, minHeartRate, averagePower, maxPower, averageAltitude, maximumAltitude };
                 dataGridView2.Rows.Clear();
                 dataGridView2.Rows.Add(summarydata);
+                // radioButton2.Checked = true;
+                checkBox2.Checked = true;
             }
         }
 
@@ -126,16 +143,18 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         {
 
             //Showing data on grid
-            dataGridView1.ColumnCount = 4;
+            dataGridView1.ColumnCount = 6;
             dataGridView1.Columns[0].Name = "Cadence (RPM)";
             dataGridView1.Columns[1].Name = "Altitude (m/ft)";
             dataGridView1.Columns[2].Name = "Heart rate (BPM)";
             dataGridView1.Columns[3].Name = "Power (Watts)";
+            dataGridView1.Columns[4].Name = "Speed (Mile/hr)";
+            dataGridView1.Columns[5].Name = "Time";
 
             dataGridView2.ColumnCount = 10;
             dataGridView2.Columns[0].Name = "Total distance covered (KM)";
-            dataGridView2.Columns[1].Name = "Average speed (Km/Hr)";
-            dataGridView2.Columns[2].Name = "Maximum speed (Km/Hr)";
+            dataGridView2.Columns[1].Name = "Average speed (Mile/Hr)";
+            dataGridView2.Columns[2].Name = "Maximum speed (Mile/Hr)";
             dataGridView2.Columns[3].Name = "Average heart rate (BPM)";
             dataGridView2.Columns[4].Name = "Maximum heart rate (BPM)";
             dataGridView2.Columns[5].Name = "Minimum heart rate (BPM)";
@@ -143,6 +162,61 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             dataGridView2.Columns[7].Name = "Maximum power (Watts)";
             dataGridView2.Columns[8].Name = "Average altitude(m/ft)";
             dataGridView2.Columns[9].Name = "Maximum altitude(m/ft)";
+        }
+
+        private void CalculateSpeed(string type)
+        {
+            if (_hrData.Count > 0)
+            {
+                List<string> data = new List<string>();
+                if (type == "Mile")
+                {
+                    dataGridView1.Columns[4].Name = "Speed(Mile/hr)";
+
+                    data.Clear();
+
+                    for (int i = 0; i < _hrData["cadence"].Count; i++)
+                    {
+                        string temp = (Convert.ToDouble(_hrData["speed"][i]) * 1.60934).ToString();
+                        data.Add(temp);
+                    }
+
+                    //_hrData["speed"].Clear();
+                    _hrData["speed"] = data;
+
+                    dataGridView1.Rows.Clear();
+                    DateTime dateTime = DateTime.Parse(_param["StartTime"]);
+                    for (int i = 0; i < _hrData["cadence"].Count; i++)
+                    {
+                        if (i > 0) dateTime = dateTime.AddSeconds(Convert.ToInt32(_param["Interval"]));
+                        string[] hrData = new string[] { _hrData["cadence"][i], _hrData["altitude"][i], _hrData["heartRate"][i], _hrData["watt"][i], _hrData["speed"][i], dateTime.TimeOfDay.ToString() };
+                        dataGridView1.Rows.Add(hrData);
+                    }
+                }
+                else
+                {
+                    dataGridView1.Columns[4].Name = "Speed(km/hr)";
+
+                    data.Clear();
+                    for (int i = 0; i < _hrData["cadence"].Count; i++)
+                    {
+                        string temp = (Convert.ToDouble(_hrData["speed"][i]) / 1.60934).ToString();
+                        data.Add(temp);
+                    }
+
+                    //_hrData["speed"].Clear();
+                    _hrData["speed"] = data;
+
+                    dataGridView1.Rows.Clear();
+                    DateTime dateTime = DateTime.Parse(_param["StartTime"]);
+                    for (int i = 0; i < _hrData["cadence"].Count; i++)
+                    {
+                        if (i > 0) dateTime = dateTime.AddSeconds(Convert.ToInt32(_param["Interval"]));
+                        string[] hrData = new string[] { _hrData["cadence"][i], _hrData["altitude"][i], _hrData["heartRate"][i], _hrData["watt"][i], _hrData["speed"][i], dateTime.TimeOfDay.ToString() };
+                        dataGridView1.Rows.Add(hrData);
+                    }
+                }
+            }
         }
 
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
@@ -218,14 +292,41 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            //checkBox2.Refresh();
+            //checkBox2.Checked = false;
+            //CalculateSpeed("km");
 
         }
 
-        private void Startup_Load(object sender, EventArgs e)
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
+            //checkBox1.Checked = false;
+            //checkBox1.Visible = true;
+            //count++;
+            //if (count > 1) CalculateSpeed("mile");
+        }
 
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
+            //checkBox2.Refresh();
+            checkBox2.Checked = false;
+            CalculateSpeed("km");
+            checkBox2.Refresh();
+        }
+
+        private void checkBox2_Click(object sender, EventArgs e)
+        {
+            checkBox1.Refresh();
+           checkBox1.Checked = false;
+            //checkBox2.Checked = true;
+            //checkBox1.Visible = true;
+           // count++;
+            if (count > 1) CalculateSpeed("Mile");
+            checkBox2.Refresh();
+            checkBox2.Checked = true;
         }
     }
+    
 }
