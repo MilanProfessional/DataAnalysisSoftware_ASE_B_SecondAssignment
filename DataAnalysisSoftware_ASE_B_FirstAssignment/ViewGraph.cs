@@ -11,7 +11,7 @@ using ZedGraph;
 
 namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
-    public partial class ViewGraph : Form
+    public partial class ViewGraph : Form 
     {
         public static Dictionary<string, List<string>> _hrData;
         public ViewGraph()
@@ -31,6 +31,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl3.Visible = false;
             zedGraphControl4.Visible = false;
             zedGraphControl5.Visible = false;
+            zedGraphControl6.Visible = false;
         }
 
         //private int[] buildTeamAData()
@@ -59,10 +60,12 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             myPane.Title = "Overview";
             myPane.XAxis.Title = "Time (second)";
             myPane.YAxis.Title = "Data";
+
             PointPairList cadencePairList = new PointPairList();
             PointPairList altitudePairList = new PointPairList();
             PointPairList heartPairList = new PointPairList();
             PointPairList powerPairList = new PointPairList();
+            PointPairList speedPairList = new PointPairList();
 
 
             for (int i = 0; i < _hrData["cadence"].Count; i++)
@@ -85,7 +88,10 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 powerPairList.Add(i, Convert.ToInt16(_hrData["watt"][i]));
             }
 
-            
+            for (int i = 0; i < _hrData["speed"].Count; i++)
+            {
+                speedPairList.Add(i, Convert.ToDouble(_hrData["speed"][i]));
+            }
 
             LineItem cadence = myPane.AddCurve("Cadence",
                    cadencePairList, Color.Red, SymbolType.None);
@@ -99,6 +105,9 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             LineItem power = myPane.AddCurve("Power",
                   powerPairList, Color.DarkGreen, SymbolType.None);
 
+            LineItem speed = myPane.AddCurve("Speed",
+                  speedPairList, Color.DarkOrange, SymbolType.None);
+
             zedGraphControl1.AxisChange();
 
 
@@ -110,6 +119,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             GraphPane heartRatePane = zedGraphControl3.GraphPane;
             GraphPane cadencePane = zedGraphControl4.GraphPane;
             GraphPane powerPane = zedGraphControl5.GraphPane;
+            GraphPane altitudePane = zedGraphControl6.GraphPane;
 
 
             // Set the Titles
@@ -129,10 +139,15 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             powerPane.XAxis.Title = "Time in second";
             powerPane.YAxis.Title = "Data";
 
+            altitudePane.Title = "Overview";
+            altitudePane.XAxis.Title = "Time in second";
+            altitudePane.YAxis.Title = "Data";
+
             PointPairList cadencePairList = new PointPairList();
             PointPairList altitudePairList = new PointPairList();
             PointPairList heartPairList = new PointPairList();
             PointPairList powerPairList = new PointPairList();
+            PointPairList speedPairList = new PointPairList();
 
 
             for (int i = 0; i < _hrData["cadence"].Count; i++)
@@ -155,6 +170,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 powerPairList.Add(i, Convert.ToInt16(_hrData["watt"][i]));
             }
 
+            for (int i = 0; i < _hrData["speed"].Count; i++)
+            {
+                speedPairList.Add(i, Convert.ToDouble(_hrData["speed"][i]));
+            }
+
             LineItem cadence = cadencePane.AddCurve("Cadence",
                     cadencePairList, Color.Red, SymbolType.None);
             //cadence.Symbol.Fill = new Fill(new Color[] { Color.Blue, Color.Green, Color.Red });
@@ -168,10 +188,14 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             LineItem power = powerPane.AddCurve("Power",
                   powerPairList, Color.DarkGreen, SymbolType.None);
 
+            LineItem speed = altitudePane.AddCurve("Speed",
+                  speedPairList, Color.DarkOrange, SymbolType.None);
+
             zedGraphControl2.AxisChange();
             zedGraphControl3.AxisChange();
             zedGraphControl4.AxisChange();
             zedGraphControl5.AxisChange();
+            zedGraphControl6.AxisChange();
         }
 
         private void SetSize()
@@ -240,7 +264,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             {
                 this.Close();
                 OtherGraph._hrData = _hrData;
-                new OtherGraph().Show();
+                new OtherGraph(Program.smode).Show();
             }
         }
 
@@ -251,6 +275,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl3.Visible = false;
             zedGraphControl4.Visible = false;
             zedGraphControl5.Visible = false;
+            zedGraphControl6.Visible = false;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -260,6 +285,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl3.Visible = true;
             zedGraphControl4.Visible = false;
             zedGraphControl5.Visible = false;
+            zedGraphControl6.Visible = false;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -269,6 +295,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl3.Visible = false;
             zedGraphControl4.Visible = true;
             zedGraphControl5.Visible = false;
+            zedGraphControl6.Visible = false;
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
@@ -278,6 +305,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl3.Visible = false;
             zedGraphControl4.Visible = false;
             zedGraphControl5.Visible = true;
+            zedGraphControl6.Visible = false;
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
@@ -287,6 +315,17 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl3.Visible = false;
             zedGraphControl4.Visible = false;
             zedGraphControl5.Visible = false;
+            zedGraphControl6.Visible = false;
+        }
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            zedGraphControl1.Visible = false;
+            zedGraphControl2.Visible = false;
+            zedGraphControl3.Visible = false;
+            zedGraphControl4.Visible = false;
+            zedGraphControl5.Visible = false;
+            zedGraphControl6.Visible = true;
         }
     }
 }

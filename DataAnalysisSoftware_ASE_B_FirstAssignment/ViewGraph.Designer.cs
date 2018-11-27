@@ -46,6 +46,8 @@
             this.zedGraphControl2 = new ZedGraph.ZedGraphControl();
             this.zedGraphControl5 = new ZedGraph.ZedGraphControl();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.zedGraphControl6 = new ZedGraph.ZedGraphControl();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,10 +142,10 @@
             this.radioButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radioButton1.Location = new System.Drawing.Point(334, 440);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(56, 17);
+            this.radioButton1.Size = new System.Drawing.Size(60, 17);
             this.radioButton1.TabIndex = 22;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Speed";
+            this.radioButton1.Text = "Altitude";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
@@ -234,11 +236,34 @@
             this.radioButton5.UseVisualStyleBackColor = true;
             this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
             // 
+            // zedGraphControl6
+            // 
+            this.zedGraphControl6.IsShowPointValues = false;
+            this.zedGraphControl6.Location = new System.Drawing.Point(12, 39);
+            this.zedGraphControl6.Name = "zedGraphControl6";
+            this.zedGraphControl6.PointValueFormat = "G";
+            this.zedGraphControl6.Size = new System.Drawing.Size(1034, 384);
+            this.zedGraphControl6.TabIndex = 28;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Location = new System.Drawing.Point(789, 440);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(56, 17);
+            this.radioButton6.TabIndex = 29;
+            this.radioButton6.TabStop = true;
+            this.radioButton6.Text = "Speed";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            this.radioButton6.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
+            // 
             // ViewGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1049, 479);
+            this.Controls.Add(this.radioButton6);
+            this.Controls.Add(this.zedGraphControl6);
             this.Controls.Add(this.radioButton5);
             this.Controls.Add(this.zedGraphControl4);
             this.Controls.Add(this.zedGraphControl3);
@@ -282,5 +307,7 @@
         private ZedGraph.ZedGraphControl zedGraphControl2;
         private ZedGraph.ZedGraphControl zedGraphControl5;
         private System.Windows.Forms.RadioButton radioButton5;
+        private ZedGraph.ZedGraphControl zedGraphControl6;
+        private System.Windows.Forms.RadioButton radioButton6;
     }
 }

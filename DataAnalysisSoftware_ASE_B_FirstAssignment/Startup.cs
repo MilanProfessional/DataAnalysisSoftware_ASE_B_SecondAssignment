@@ -18,6 +18,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         private string endTime;
         private Dictionary<string, List<string>> _hrData = new Dictionary<string, List<string>>();
         private Dictionary<string, string> _param = new Dictionary<string, string>();
+        private List<int> smode = new List<int>();
 
         public Startup()
         {
@@ -81,6 +82,13 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 lblLength.Text = "Length" + "= " + _param["Length"];
                 lblWeight.Text = "Weight" + "= " + Regex.Replace(_param["Weight"], @"\t|\n|\r", "") + " KG";
 
+                //Fetching Smode Data from file
+                var sMode = _param["SMode"];
+                for (int i = 0; i < sMode.Length; i++)
+                {
+                    smode.Add((int)Char.GetNumericValue(_param["SMode"][i]));
+                }
+
                 List<string> cadence = new List<string>();
                 List<string> altitude = new List<string>();
                 List<string> heartRate = new List<string>();
@@ -118,15 +126,37 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 _hrData.Add("watt", watt);
                 _hrData.Add("speed", speed);
 
+                //
+                if (smode[0] == 0)
+                {
+                    dataGridView1.Columns[0].Visible = false;
+                }
+                else if (smode[1] == 0)
+                {
+                    dataGridView1.Columns[1].Visible = false;
+                }
+                else if (smode[2] == 0)
+                {
+                    dataGridView1.Columns[2].Visible = false;
+                }
+                else if (smode[3] == 0)
+                {
+                    dataGridView1.Columns[3].Visible = false;
+                }
+                else if (smode[4] == 0)
+                {
+                    dataGridView1.Columns[4].Visible = false;
+                }
+
                 double startDate = TimeSpan.Parse(_param["StartTime"]).TotalSeconds;
                 double endDate = TimeSpan.Parse(endTime).TotalSeconds;
                 double totalTime = endDate - startDate;
 
                 //string totalDistanceCovered = Summary.FindSum(_hrData["cadence"]).ToString();
 
-                string averageSpeed = Summary.FindAverage(_hrData["cadence"]).ToString();
-                string totalDistanceCovered = (Convert.ToDouble(averageSpeed) * totalTime).ToString();
-                string maxSpeed = Summary.FindMax(_hrData["cadence"]).ToString();
+                string averageSpeed = Summary.FindAverage(_hrData["speed"]).ToString();
+                string totalDistanceCovered = ((Convert.ToDouble(averageSpeed) * totalTime) / 360).ToString();
+                string maxSpeed = Summary.FindMax(_hrData["speed"]).ToString();
 
                 string averageHeartRate = Summary.FindAverage(_hrData["heartRate"]).ToString();
                 string maximumHeartRate = Summary.FindMax(_hrData["heartRate"]).ToString();
@@ -209,7 +239,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
                     for (int i = 0; i < _hrData["cadence"].Count; i++)
                     {
-                        string temp = (Convert.ToDouble(_hrData["speed"][i]) * 1.60934).ToString();
+                        string temp = (Convert.ToDouble(_hrData["speed"][i]) / 1.60934).ToString();
                         data.Add(temp);
                     }
 
@@ -232,7 +262,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                     data.Clear();
                     for (int i = 0; i < _hrData["cadence"].Count; i++)
                     {
-                        string temp = (Convert.ToDouble(_hrData["speed"][i]) / 1.60934).ToString();
+                        string temp = (Convert.ToDouble(_hrData["speed"][i]) * 1.60934).ToString();
                         data.Add(temp);
                     }
 
@@ -261,7 +291,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             }
             else
             {
-                
+                Program.smode = smode;
                 ViewGraph._hrData = _hrData;
                 new ViewGraph().Show();
             }
@@ -315,9 +345,9 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             }
             else
             {
-
+                Program.smode = smode;
                 OtherGraph._hrData = _hrData;
-                new OtherGraph().Show();
+                new OtherGraph(smode).Show();
             }
 
 

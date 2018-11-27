@@ -14,8 +14,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
     public partial class OtherGraph : Form
     {
         public static Dictionary<string, List<string>> _hrData;
-        public OtherGraph()
+        private List<int> _smode;
+
+        public OtherGraph(List<int> smode)
         {
+            _smode = smode;
             InitializeComponent();
             plotGraph();
         }
@@ -26,12 +29,14 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             GraphPane heartRatePane = zedGraphControl2.GraphPane;
             GraphPane cadencePane = zedGraphControl3.GraphPane;
             GraphPane powerPane = zedGraphControl4.GraphPane;
+            GraphPane altitudePane = zedGraphControl5.GraphPane;
 
 
             // Set the Titles
-            speedPane.Title = "Overview";
-            speedPane.XAxis.Title = "Time in second";
-            speedPane.YAxis.Title = "Data";
+            altitudePane.Title = "Overview";
+            altitudePane.XAxis.Title = "Time in second";
+            altitudePane.YAxis.Title = "Data";
+            
 
             heartRatePane.Title = "Overview";
             heartRatePane.XAxis.Title = "Time in second";
@@ -45,10 +50,17 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             powerPane.XAxis.Title = "Time in second";
             powerPane.YAxis.Title = "Data";
 
+            speedPane.Title = "Overview";
+            speedPane.XAxis.Title = "Time in second";
+            speedPane.YAxis.Title = "Data";
+
+
+
             PointPairList cadencePairList = new PointPairList();
             PointPairList altitudePairList = new PointPairList();
             PointPairList heartPairList = new PointPairList();
             PointPairList powerPairList = new PointPairList();
+            PointPairList speedPairList = new PointPairList();
 
 
             for (int i = 0; i < _hrData["cadence"].Count; i++)
@@ -71,11 +83,16 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 powerPairList.Add(i, Convert.ToInt16(_hrData["watt"][i]));
             }
 
+            for (int i = 0; i < _hrData["speed"].Count; i++)
+            {
+                speedPairList.Add(i, Convert.ToDouble(_hrData["speed"][i]));
+            }
+
             LineItem cadence = cadencePane.AddCurve("Cadence",
                     cadencePairList, Color.Red, SymbolType.None);
             //cadence.Symbol.Fill = new Fill(new Color[] { Color.Blue, Color.Green, Color.Red });
 
-            LineItem altitude = speedPane.AddCurve("Altitude",
+            LineItem altitude = altitudePane.AddCurve("Altitude",
                   altitudePairList, Color.Cyan, SymbolType.None);
 
             LineItem heart = heartRatePane.AddCurve("Heart",
@@ -84,10 +101,40 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             LineItem power = powerPane.AddCurve("Power",
                   powerPairList, Color.DarkGreen, SymbolType.None);
 
+            LineItem speed = speedPane.AddCurve("Speed",
+                  speedPairList, Color.DarkOrange, SymbolType.None);
+
             zedGraphControl1.AxisChange();
             zedGraphControl2.AxisChange();
             zedGraphControl3.AxisChange();
             zedGraphControl4.AxisChange();
+            zedGraphControl5.AxisChange();
+
+            if (_smode[0] == 0)
+            {
+                //cadence
+                zedGraphControl3.Visible = false;
+            }
+            else if (_smode[1] == 0)
+            {
+                //altitude
+                zedGraphControl1.Visible = false;
+            }
+            else if (_smode[2] == 0)
+            {
+                //heart rate
+                zedGraphControl2.Visible = false;
+            }
+            else if (_smode[3] == 0)
+            {
+                //pwer
+                zedGraphControl4.Visible = false;
+            }
+            else if (_smode[4] == 0)
+            {
+                //sped
+                zedGraphControl5.Visible = false;
+            }
         }
 
         private void OtherGraph_Load(object sender, EventArgs e)
@@ -112,11 +159,15 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl4.Location = new Point(0, 0);
             zedGraphControl4.IsShowPointValues = true;
             zedGraphControl4.Size = new Size(this.ClientRectangle.Width - 20, this.ClientRectangle.Height - 50);
+
+            zedGraphControl5.Location = new Point(0, 0);
+            zedGraphControl4.IsShowPointValues = true;
+            zedGraphControl5.Size = new Size(this.ClientRectangle.Width - 20, this.ClientRectangle.Height - 50);
         }
 
         private void OtherGraph_Resize(object sender, EventArgs e)
         {
-            SetSize();
+           // SetSize();
         }
 
         private void backToolStripMenuItem_Click(object sender, EventArgs e)

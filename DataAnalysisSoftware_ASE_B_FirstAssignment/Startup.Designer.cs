@@ -52,6 +52,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -66,7 +67,7 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(12, 338);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(563, 94);
+            this.dataGridView2.Size = new System.Drawing.Size(517, 94);
             this.dataGridView2.TabIndex = 19;
             // 
             // lblWeight
@@ -268,9 +269,9 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(581, 65);
+            this.dataGridView1.Location = new System.Drawing.Point(535, 65);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(468, 367);
+            this.dataGridView1.Size = new System.Drawing.Size(514, 367);
             this.dataGridView1.TabIndex = 18;
             // 
             // checkBox1
@@ -278,9 +279,9 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(824, 42);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(69, 17);
+            this.checkBox1.Size = new System.Drawing.Size(97, 17);
             this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "Kilometre";
+            this.checkBox1.Text = "Kilometre/Hour";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
@@ -288,14 +289,26 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(910, 42);
+            this.checkBox2.Location = new System.Drawing.Point(927, 43);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(45, 17);
+            this.checkBox2.Size = new System.Drawing.Size(73, 17);
             this.checkBox2.TabIndex = 21;
-            this.checkBox2.Text = "Mile";
+            this.checkBox2.Text = "Mile/Hour";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             this.checkBox2.Click += new System.EventHandler(this.checkBox2_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(12, 305);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(163, 30);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Summary Data";
             // 
             // Startup
             // 
@@ -307,6 +320,7 @@
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblWeight);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.lblLength);
@@ -356,6 +370,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label2;
     }
 }
 

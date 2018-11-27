@@ -8,6 +8,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
     static class Program
     {
+        public static List<int> smode;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
