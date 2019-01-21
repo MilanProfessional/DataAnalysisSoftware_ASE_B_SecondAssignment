@@ -34,25 +34,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             zedGraphControl6.Visible = false;
         }
 
-        //private int[] buildTeamAData()
-        //{
-        //    int[] goalsScored = new int[10];
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        goalsScored[i] = (i + 1) * 10;
-        //    }
-        //    return goalsScored;
-        //}
-
-        //private int[] buildTeamBData()
-        //{
-        //    int[] goalsScored = new int[10];
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        goalsScored[i] = (i + 10) * 11;
-        //    }
-        //    return goalsScored;
-        //}
+     
 
         private void plotGraph()
         {
@@ -177,7 +159,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
             LineItem cadence = cadencePane.AddCurve("Cadence",
                     cadencePairList, Color.Red, SymbolType.None);
-            //cadence.Symbol.Fill = new Fill(new Color[] { Color.Blue, Color.Green, Color.Red });
+           
 
             LineItem altitude = speedPane.AddCurve("Altitude",
                   altitudePairList, Color.Cyan, SymbolType.None);

@@ -25,108 +25,44 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             InitializeComponent();
             InitGrid();
         }
-        private string[] SplitString(string text)
-        {
-            var splitString = new string[] { "[Params]", "[Note]", "[IntTimes]", "[IntNotes]",
-                "[ExtraData]", "[LapNames]", "[Summary-123]",
-                "[Summary-TH]", "[HRZones]", "[SwapTimes]", "[Trip]", "[HRData]"};
+        //private string[] SplitString(string text)
+        //{
+        //    var splitString = new string[] { "[Params]", "[Note]", "[IntTimes]", "[IntNotes]",
+        //        "[ExtraData]", "[LapNames]", "[Summary-123]",
+        //        "[Summary-TH]", "[HRZones]", "[SwapTimes]", "[Trip]", "[HRData]"};
 
-            var splittedText = text.Split(splitString, StringSplitOptions.RemoveEmptyEntries);
+        //    var splittedText = text.Split(splitString, StringSplitOptions.RemoveEmptyEntries);
 
-            return splittedText;
-        }
+        //    return splittedText;
+        //}
 
-        private string[] SplitStringByEnter(string text)
-        {
-            return text.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-        }
+        //private string[] SplitStringByEnter(string text)
+        //{
+        //    return text.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        //}
 
-        private string[] SplitStringBySpace(string text)
-        {
-            var formattedText = string.Join(" ", text.Split().Where(x => x != ""));
-            return formattedText.Split(' ');
-        }
+        //private string[] SplitStringBySpace(string text)
+        //{
+        //    var formattedText = string.Join(" ", text.Split().Where(x => x != ""));
+        //    return formattedText.Split(' ');
+        //}
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                _param = new Dictionary<string, string>();
-                _hrData = new Dictionary<string, List<string>>();
                 string text = File.ReadAllText(openFileDialog1.FileName);
-                var splittedString = SplitString(text);
-
-                var splittedParamsData = SplitStringByEnter(splittedString[0]);
-
-                foreach (var data in splittedParamsData)
-                {
-                    if (data != "\r")
-                    {
-                        string[] parts = data.Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
-                        _param.Add(parts[0], parts[1]);
-                    }
-                }
-
-                //To extract file from source and shhowing them
-                //lblStartTime.AutoSize = false;
-                //lblStartTime.Size = new Size(2000, 50);
-                
-                lblStartTime.Text = "Start Time" + "= " + Regex.Replace(_param["StartTime"], @"\t|\n|\r", "") + " ";
-                lblInterval.Text = "Interval" + "= " + Regex.Replace(_param["Interval"], @"\t|\n|\r", "") + " Sec ";
-                /*lblStartTimeUnit.Show();*/
-                lblMonitor.Text = "Monitor" + "= " + Regex.Replace(_param["Monitor"], @"\t|\n|\r", "") + " " ; 
-                lblSMode.Text = "SMode" + "= " + _param["SMode"];
-                lblDate.Text = "Date" + "= " + ConvertToDate(_param["Date"]);
-                lblLength.Text = "Length" + "= " + _param["Length"];
-                lblWeight.Text = "Weight" + "= " + Regex.Replace(_param["Weight"], @"\t|\n|\r", "") + " KG";
-
-                //Fetching Smode Data from file
-                var sMode = _param["SMode"];
+                Dictionary<string, object> hrData = new TableFiller().FillTable(text, dataGridView1);
+                _hrData = hrData.ToDictionary(k => k.Key, k => k.Value as List<string>);
+                var param = hrData["params"] as Dictionary<string, string>;
+                var sMode = param["SMode"];
                 for (int i = 0; i < sMode.Length; i++)
                 {
-                    smode.Add((int)Char.GetNumericValue(_param["SMode"][i]));
+                    smode.Add((int)Char.GetNumericValue(param["SMode"][i]));
                 }
-
-                List<string> cadence = new List<string>();
-                List<string> altitude = new List<string>();
-                List<string> heartRate = new List<string>();
-                List<string> watt = new List<string>();
-                List<string> speed = new List<string>();
-
-                //adding data for datagrid
-                var splittedHrData = SplitStringByEnter(splittedString[11]);
-                DateTime dateTime = DateTime.Parse(_param["StartTime"]);
-
-                int temp = 0;
-                foreach (var data in splittedHrData)
-                {
-                    temp++;
-                    var value = SplitStringBySpace(data);
-
-                    if (value.Length >= 5)
-                    {
-                        cadence.Add(value[0]);
-                        altitude.Add(value[1]);
-                        heartRate.Add(value[2]);
-                        watt.Add(value[3]);
-                        speed.Add(value[4]);
-
-                        if (temp > 2) dateTime = dateTime.AddSeconds(Convert.ToInt32(_param["Interval"]));
-                        endTime = dateTime.TimeOfDay.ToString();
-                        string[] hrData = new string[] { value[0], value[1], value[2], value[3], value[4], dateTime.TimeOfDay.ToString() };
-                        dataGridView1.Rows.Add(hrData);
-                    }
-                }
-
-                _hrData.Add("cadence", cadence);
-                _hrData.Add("altitude", altitude);
-                _hrData.Add("heartRate", heartRate);
-                _hrData.Add("watt", watt);
-                _hrData.Add("speed", speed);
-
-                //
                 if (smode[0] == 0)
                 {
                     dataGridView1.Columns[0].Visible = false;
@@ -147,33 +83,135 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 {
                     dataGridView1.Columns[4].Visible = false;
                 }
-
-                double startDate = TimeSpan.Parse(_param["StartTime"]).TotalSeconds;
-                double endDate = TimeSpan.Parse(endTime).TotalSeconds;
-                double totalTime = endDate - startDate;
-
-                //string totalDistanceCovered = Summary.FindSum(_hrData["cadence"]).ToString();
-
-                string averageSpeed = Summary.FindAverage(_hrData["speed"]).ToString();
-                string totalDistanceCovered = ((Convert.ToDouble(averageSpeed) * totalTime) / 360).ToString();
-                string maxSpeed = Summary.FindMax(_hrData["speed"]).ToString();
-
-                string averageHeartRate = Summary.FindAverage(_hrData["heartRate"]).ToString();
-                string maximumHeartRate = Summary.FindMax(_hrData["heartRate"]).ToString();
-                string minHeartRate = Summary.FindMin(_hrData["heartRate"]).ToString();
-
-                string averagePower = Summary.FindAverage(_hrData["watt"]).ToString();
-                string maxPower = Summary.FindMax(_hrData["watt"]).ToString();
-
-                string averageAltitude = Summary.FindAverage(_hrData["altitude"]).ToString();
-                string maximumAltitude = Summary.FindAverage(_hrData["altitude"]).ToString();
-
-                string[] summarydata = new string[] { totalDistanceCovered, averageSpeed, maxSpeed, averageHeartRate, maximumHeartRate, minHeartRate, averagePower, maxPower, averageAltitude, maximumAltitude };
                 dataGridView2.Rows.Clear();
-                dataGridView2.Rows.Add(summarydata);
-                // radioButton2.Checked = true;
-                checkBox2.Checked = true;
+                dataGridView2.Rows.Add(new TableFiller().FillDataInSumaryTable(hrData, hrData["params"] as Dictionary<string, string>, hrData["endTime"] as string));
             }
+
+            //DialogResult result = openFileDialog1.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+            //    Cursor.Current = Cursors.WaitCursor;
+            //    _param = new Dictionary<string, string>();
+            //    _hrData = new Dictionary<string, List<string>>();
+            //    string text = File.ReadAllText(openFileDialog1.FileName);
+            //    var splittedString = SplitString(text);
+
+            //    var splittedParamsData = SplitStringByEnter(splittedString[0]);
+
+            //    foreach (var data in splittedParamsData)
+            //    {
+            //        if (data != "\r")
+            //        {
+            //            string[] parts = data.Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
+            //            _param.Add(parts[0], parts[1]);
+            //        }
+            //    }
+
+            //    //To extract file from source and shhowing them
+            //    //lblStartTime.AutoSize = false;
+            //    //lblStartTime.Size = new Size(2000, 50);
+
+            //    lblStartTime.Text = "Start Time" + "= " + Regex.Replace(_param["StartTime"], @"\t|\n|\r", "") + " ";
+            //    lblInterval.Text = "Interval" + "= " + Regex.Replace(_param["Interval"], @"\t|\n|\r", "") + " Sec ";
+            //    /*lblStartTimeUnit.Show();*/
+            //    lblMonitor.Text = "Monitor" + "= " + Regex.Replace(_param["Monitor"], @"\t|\n|\r", "") + " " ; 
+            //    lblSMode.Text = "SMode" + "= " + _param["SMode"];
+            //    lblDate.Text = "Date" + "= " + ConvertToDate(_param["Date"]);
+            //    lblLength.Text = "Length" + "= " + _param["Length"];
+            //    lblWeight.Text = "Weight" + "= " + Regex.Replace(_param["Weight"], @"\t|\n|\r", "") + " KG";
+
+            //    //Fetching Smode Data from file
+            //    var sMode = _param["SMode"];
+            //    for (int i = 0; i < sMode.Length; i++)
+            //    {
+            //        smode.Add((int)Char.GetNumericValue(_param["SMode"][i]));
+            //    }
+
+            //    List<string> cadence = new List<string>();
+            //    List<string> altitude = new List<string>();
+            //    List<string> heartRate = new List<string>();
+            //    List<string> watt = new List<string>();
+            //    List<string> speed = new List<string>();
+
+            //    //adding data for datagrid
+            //    var splittedHrData = SplitStringByEnter(splittedString[11]);
+            //    DateTime dateTime = DateTime.Parse(_param["StartTime"]);
+
+            //    int temp = 0;
+            //    foreach (var data in splittedHrData)
+            //    {
+            //        temp++;
+            //        var value = SplitStringBySpace(data);
+
+            //        if (value.Length >= 5)
+            //        {
+            //            cadence.Add(value[0]);
+            //            altitude.Add(value[1]);
+            //            heartRate.Add(value[2]);
+            //            watt.Add(value[3]);
+            //            speed.Add(value[4]);
+
+            //            if (temp > 2) dateTime = dateTime.AddSeconds(Convert.ToInt32(_param["Interval"]));
+            //            endTime = dateTime.TimeOfDay.ToString();
+            //            string[] hrData = new string[] { value[0], value[1], value[2], value[3], value[4], dateTime.TimeOfDay.ToString() };
+            //            dataGridView1.Rows.Add(hrData);
+            //        }
+            //    }
+
+            //    _hrData.Add("cadence", cadence);
+            //    _hrData.Add("altitude", altitude);
+            //    _hrData.Add("heartRate", heartRate);
+            //    _hrData.Add("watt", watt);
+            //    _hrData.Add("speed", speed);
+
+            //    //
+            //    if (smode[0] == 0)
+            //    {
+            //        dataGridView1.Columns[0].Visible = false;
+            //    }
+            //    else if (smode[1] == 0)
+            //    {
+            //        dataGridView1.Columns[1].Visible = false;
+            //    }
+            //    else if (smode[2] == 0)
+            //    {
+            //        dataGridView1.Columns[2].Visible = false;
+            //    }
+            //    else if (smode[3] == 0)
+            //    {
+            //        dataGridView1.Columns[3].Visible = false;
+            //    }
+            //    else if (smode[4] == 0)
+            //    {
+            //        dataGridView1.Columns[4].Visible = false;
+            //    }
+
+            //    double startDate = TimeSpan.Parse(_param["StartTime"]).TotalSeconds;
+            //    double endDate = TimeSpan.Parse(endTime).TotalSeconds;
+            //    double totalTime = endDate - startDate;
+
+            //    //string totalDistanceCovered = Summary.FindSum(_hrData["cadence"]).ToString();
+
+            //    string averageSpeed = Summary.FindAverage(_hrData["speed"]).ToString();
+            //    string totalDistanceCovered = ((Convert.ToDouble(averageSpeed) * totalTime) / 360).ToString();
+            //    string maxSpeed = Summary.FindMax(_hrData["speed"]).ToString();
+
+            //    string averageHeartRate = Summary.FindAverage(_hrData["heartRate"]).ToString();
+            //    string maximumHeartRate = Summary.FindMax(_hrData["heartRate"]).ToString();
+            //    string minHeartRate = Summary.FindMin(_hrData["heartRate"]).ToString();
+
+            //    string averagePower = Summary.FindAverage(_hrData["watt"]).ToString();
+            //    string maxPower = Summary.FindMax(_hrData["watt"]).ToString();
+
+            //    string averageAltitude = Summary.FindAverage(_hrData["altitude"]).ToString();
+            //    string maximumAltitude = Summary.FindAverage(_hrData["altitude"]).ToString();
+
+            //    string[] summarydata = new string[] { totalDistanceCovered, averageSpeed, maxSpeed, averageHeartRate, maximumHeartRate, minHeartRate, averagePower, maxPower, averageAltitude, maximumAltitude };
+            //    dataGridView2.Rows.Clear();
+            //    dataGridView2.Rows.Add(summarydata);
+            //    // radioButton2.Checked = true;
+            //    checkBox2.Checked = true;
+            //}
         }
         private string ConvertToDate(string date)
         {
@@ -356,23 +394,18 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox2.Refresh();
-            //checkBox2.Checked = false;
-            //CalculateSpeed("km");
+            
 
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox1.Checked = false;
-            //checkBox1.Visible = true;
-            //count++;
-            //if (count > 1) CalculateSpeed("mile");
+            
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
         {
-            //checkBox2.Refresh();
+            
             checkBox2.Checked = false;
             CalculateSpeed("km");
             checkBox2.Refresh();
@@ -382,12 +415,21 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         {
             checkBox1.Refresh();
            checkBox1.Checked = false;
-            //checkBox2.Checked = true;
-            //checkBox1.Visible = true;
-           // count++;
+           
             if (count > 1) CalculateSpeed("Mile");
             checkBox2.Refresh();
             checkBox2.Checked = true;
+        }
+
+        private void Startup_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void compareFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            new FileCompare().Show();
         }
     }
     

@@ -90,7 +90,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
             LineItem cadence = cadencePane.AddCurve("Cadence",
                     cadencePairList, Color.Red, SymbolType.None);
-            //cadence.Symbol.Fill = new Fill(new Color[] { Color.Blue, Color.Green, Color.Red });
+           
 
             LineItem altitude = altitudePane.AddCurve("Altitude",
                   altitudePairList, Color.Cyan, SymbolType.None);

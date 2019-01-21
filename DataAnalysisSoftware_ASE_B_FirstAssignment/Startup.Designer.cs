@@ -53,6 +53,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.compareFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -174,7 +175,8 @@
             this.openToolStripMenuItem,
             this.homeToolStripMenuItem,
             this.restartToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.compareFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -310,6 +312,13 @@
             this.label2.TabIndex = 17;
             this.label2.Text = "Summary Data";
             // 
+            // compareFileToolStripMenuItem
+            // 
+            this.compareFileToolStripMenuItem.Name = "compareFileToolStripMenuItem";
+            this.compareFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compareFileToolStripMenuItem.Text = "Compare File";
+            this.compareFileToolStripMenuItem.Click += new System.EventHandler(this.compareFileToolStripMenuItem_Click);
+            // 
             // Startup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,6 +344,7 @@
             this.Name = "Startup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Data Analysis Software";
+            this.Load += new System.EventHandler(this.Startup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -371,6 +381,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem compareFileToolStripMenuItem;
     }
 }
 
