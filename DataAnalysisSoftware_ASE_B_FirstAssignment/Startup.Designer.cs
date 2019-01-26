@@ -43,6 +43,7 @@
             this.homeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +54,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.compareFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -175,8 +175,8 @@
             this.openToolStripMenuItem,
             this.homeToolStripMenuItem,
             this.restartToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.compareFileToolStripMenuItem});
+            this.compareFileToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -185,7 +185,7 @@
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -193,7 +193,7 @@
             // 
             this.homeToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            this.homeToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.homeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.homeToolStripMenuItem.Text = "Home";
             this.homeToolStripMenuItem.Click += new System.EventHandler(this.homeToolStripMenuItem_Click);
             // 
@@ -201,7 +201,7 @@
             // 
             this.restartToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.restartToolStripMenuItem.Text = "Restart";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
@@ -209,9 +209,17 @@
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // compareFileToolStripMenuItem
+            // 
+            this.compareFileToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
+            this.compareFileToolStripMenuItem.Name = "compareFileToolStripMenuItem";
+            this.compareFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compareFileToolStripMenuItem.Text = "Compare File";
+            this.compareFileToolStripMenuItem.Click += new System.EventHandler(this.compareFileToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -227,7 +235,7 @@
             // 
             this.graphToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.graphToolStripMenuItem.Text = "Mix Graph";
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
@@ -235,7 +243,7 @@
             // 
             this.allGraphToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.allGraphToolStripMenuItem.Name = "allGraphToolStripMenuItem";
-            this.allGraphToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.allGraphToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.allGraphToolStripMenuItem.Text = "Individual Graph";
             this.allGraphToolStripMenuItem.Click += new System.EventHandler(this.allGraphToolStripMenuItem_Click);
             // 
@@ -252,7 +260,7 @@
             // 
             this.helpToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Developer Info";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -311,13 +319,6 @@
             this.label2.Size = new System.Drawing.Size(163, 30);
             this.label2.TabIndex = 17;
             this.label2.Text = "Summary Data";
-            // 
-            // compareFileToolStripMenuItem
-            // 
-            this.compareFileToolStripMenuItem.Name = "compareFileToolStripMenuItem";
-            this.compareFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.compareFileToolStripMenuItem.Text = "Compare File";
-            this.compareFileToolStripMenuItem.Click += new System.EventHandler(this.compareFileToolStripMenuItem_Click);
             // 
             // Startup
             // 

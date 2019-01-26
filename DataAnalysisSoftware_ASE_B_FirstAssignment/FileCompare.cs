@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace DataAnalysisSoftware_ASE_B_FirstAssignment
@@ -21,6 +22,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             InitializeComponent();
         }
 
+        
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
@@ -138,6 +140,23 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                     MessageBox.Show(result);
                 }
             }
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Startup().Show();
+        }
+
+        private void developerInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Data Analysis Software By:" + Environment.NewLine +
+               "Name: Milan Babu Adhikari" + Environment.NewLine +
+               "Email: milanadhikari09@live.com" + Environment.NewLine +
+               "Contact No.: +9779803818797" + Environment.NewLine +
+               "Developed in: Microsoft Visual Studio 2017 Community" + Environment.NewLine,
+               "Version 1.0.8 Freeware"
+               );
         }
     }
 }
