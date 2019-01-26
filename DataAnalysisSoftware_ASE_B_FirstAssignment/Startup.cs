@@ -487,21 +487,31 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            data.Add("cadence", listCadence);
-            data.Add("altitude", listAltitude);
-            data.Add("heartRate", listHeartRate);
-            data.Add("watt", listPower);
-            data.Add("speed", listSpeed);
-            data.Add("time", listTime);
+            try
+            {
+                data.Add("cadence", listCadence);
+                data.Add("altitude", listAltitude);
+                data.Add("heartRate", listHeartRate);
+                data.Add("watt", listPower);
+                data.Add("speed", listSpeed);
+                data.Add("time", listTime);
 
-            var endTime = data["time"] as List<string>;
-            int count = endTime.Count();
-            Dictionary<string, string> _param = new Dictionary<string, string>();
-            _param.Add("StartTime", endTime[0]);
+                var endTime = data["time"] as List<string>;
+                int count = endTime.Count();
+                Dictionary<string, string> _param = new Dictionary<string, string>();
+                _param.Add("StartTime", endTime[0]);
 
-            dataGridView2.Rows.Clear();
-            dataGridView2.Rows.Add(new TableFiller().FillDataInSumaryTable(data, endTime[count - 1], _param));
-            
+                dataGridView2.Rows.Clear();
+                dataGridView2.Rows.Add(new TableFiller().FillDataInSumaryTable(data, endTime[count - 1], _param));
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Data Exist ! ! !" + Environment.NewLine +
+                                    "Enter Data First."
+                                    );
+                this.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -509,7 +519,26 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             data.Clear();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var data = _hrData.ToDictionary(k => k.Key, k => k.Value as object);
+                this.Hide();
+                new DetectInterval(data).Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Data Exist ! ! !" + Environment.NewLine +
+                    "Enter Data First."
+                    );
+                this.Show();
+            }
 
+
+
+
+        }
     }
 
 }

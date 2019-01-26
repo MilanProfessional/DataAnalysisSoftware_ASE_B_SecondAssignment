@@ -137,7 +137,7 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.SkyBlue;
+            this.menuStrip1.BackColor = System.Drawing.Color.DarkGray;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.aboutToolStripMenuItem});
@@ -149,6 +149,7 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backToolStripMenuItem,
             this.exitToolStripMenuItem});
@@ -158,6 +159,7 @@
             // 
             // backToolStripMenuItem
             // 
+            this.backToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
             this.backToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.backToolStripMenuItem.Text = "Back";
@@ -165,12 +167,15 @@
             // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.developerInfoToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
@@ -179,8 +184,9 @@
             // 
             // developerInfoToolStripMenuItem
             // 
+            this.developerInfoToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.developerInfoToolStripMenuItem.Name = "developerInfoToolStripMenuItem";
-            this.developerInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.developerInfoToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.developerInfoToolStripMenuItem.Text = "Developer info.";
             this.developerInfoToolStripMenuItem.Click += new System.EventHandler(this.developerInfoToolStripMenuItem_Click);
             // 
