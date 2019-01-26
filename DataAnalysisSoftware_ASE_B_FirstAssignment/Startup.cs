@@ -57,6 +57,23 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 string text = File.ReadAllText(openFileDialog1.FileName);
                 Dictionary<string, object> hrData = new TableFiller().FillTable(text, dataGridView1);
                 _hrData = hrData.ToDictionary(k => k.Key, k => k.Value as List<string>);
+                // lblStartTime.Text = "Start Time" + "= " + Regex.Replace(_param["StartTime"], @"\t|\n|\r", "") + " ";
+                //lblInterval.Text = "Interval" + "= " + Regex.Replace(_param["Interval"], @"\t|\n|\r", "") + " Sec ";
+                ///*lblStartTimeUnit.Show();*/
+                //lblMonitor.Text = "Monitor" + "= " + Regex.Replace(_param["Monitor"], @"\t|\n|\r", "") + " ";
+                //lblSMode.Text = "SMode" + "= " + _param["SMode"];
+                //lblDate.Text = "Date" + "= " + ConvertToDate(_param["Date"]);
+                //lblLength.Text = "Length" + "= " + _param["Length"];
+                //lblWeight.Text = "Weight" + "= " + Regex.Replace(_param["Weight"], @"\t|\n|\r", "") + " KG";
+
+                //Fetching Smode Data from file
+
+
+                List<string> cadence = new List<string>();
+                List<string> altitude = new List<string>();
+                List<string> heartRate = new List<string>();
+                List<string> watt = new List<string>();
+                List<string> speed = new List<string>();
                 var param = hrData["params"] as Dictionary<string, string>;
                 var sMode = param["SMode"];
                 for (int i = 0; i < sMode.Length; i++)
@@ -84,7 +101,8 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                     dataGridView1.Columns[4].Visible = false;
                 }
                 dataGridView2.Rows.Clear();
-                dataGridView2.Rows.Add(new TableFiller().FillDataInSumaryTable(hrData, hrData["params"] as Dictionary<string, string>, hrData["endTime"] as string));
+                //dataGridView2.Rows.Add(new TableFiller().FillDataInSumaryTable(hrData, hrData["params"] as Dictionary<string, string>, hrData["endTime"] as string));
+                dataGridView2.Rows.Add(new TableFiller().FillDataInSumaryTable(hrData, hrData["endTime"] as string, hrData["params"] as Dictionary<string, string>));
             }
 
             //DialogResult result = openFileDialog1.ShowDialog();
@@ -323,7 +341,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         {
             if (_hrData.Count < 1)
             {
-                MessageBox.Show("No Data Exist ! ! !" + Environment.NewLine + 
+                MessageBox.Show("No Data Exist ! ! !" + Environment.NewLine +
                     "Enter Data First."
                     );
             }
@@ -333,7 +351,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 ViewGraph._hrData = _hrData;
                 new ViewGraph().Show();
             }
-           
+
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -389,23 +407,23 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             }
 
 
-            
+
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            
+
 
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
         {
-            
+
             checkBox2.Checked = false;
             CalculateSpeed("km");
             checkBox2.Refresh();
@@ -414,8 +432,8 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         private void checkBox2_Click(object sender, EventArgs e)
         {
             checkBox1.Refresh();
-           checkBox1.Checked = false;
-           
+            checkBox1.Checked = false;
+
             if (count > 1) CalculateSpeed("Mile");
             checkBox2.Refresh();
             checkBox2.Checked = true;
@@ -431,6 +449,67 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             this.Close();
             new FileCompare().Show();
         }
+
+        private Dictionary<string, object> data = new Dictionary<string, object>();
+        List<string> listCadence = new List<string>();
+        List<string> listAltitude = new List<string>();
+        List<string> listHeartRate = new List<string>();
+        List<string> listPower = new List<string>();
+        List<string> listSpeed = new List<string>();
+        List<string> listTime = new List<string>();
+
+        private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            if (e.StateChanged != DataGridViewElementStates.Selected) return;
+            int index = Convert.ToInt32(e.Row.Index.ToString());
+
+            string cadence = dataGridView1.Rows[index].Cells[0].Value.ToString();
+            listCadence.Add(cadence);
+
+            //_hrData.Add("cadence", new List());
+            string altitude = dataGridView1.Rows[index].Cells[1].Value.ToString();
+            listAltitude.Add(altitude);
+
+            string heartRate = dataGridView1.Rows[index].Cells[2].Value.ToString();
+            listHeartRate.Add(heartRate);
+
+            string power = dataGridView1.Rows[index].Cells[3].Value.ToString();
+            listPower.Add(power);
+
+            string speed = dataGridView1.Rows[index].Cells[4].Value.ToString();
+            listSpeed.Add(speed);
+
+            string time = dataGridView1.Rows[index].Cells[5].Value.ToString();
+            listTime.Add(time);
+
+            Console.WriteLine(cadence + "/" + altitude + "/" + heartRate + "/" + power + "/" + speed + "/" + time);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            data.Add("cadence", listCadence);
+            data.Add("altitude", listAltitude);
+            data.Add("heartRate", listHeartRate);
+            data.Add("watt", listPower);
+            data.Add("speed", listSpeed);
+            data.Add("time", listTime);
+
+            var endTime = data["time"] as List<string>;
+            int count = endTime.Count();
+            Dictionary<string, string> _param = new Dictionary<string, string>();
+            _param.Add("StartTime", endTime[0]);
+
+            dataGridView2.Rows.Clear();
+            dataGridView2.Rows.Add(new TableFiller().FillDataInSumaryTable(data, endTime[count - 1], _param));
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            data.Clear();
+        }
+
+
     }
-    
+
 }
