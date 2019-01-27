@@ -326,32 +326,36 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.button1.Location = new System.Drawing.Point(566, 438);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 23);
+            this.button1.Size = new System.Drawing.Size(110, 35);
             this.button1.TabIndex = 22;
             this.button1.Text = "Result of Select";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(715, 438);
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.button2.Location = new System.Drawing.Point(682, 439);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(94, 34);
             this.button2.TabIndex = 23;
             this.button2.Text = "Reset Selection";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(824, 437);
+            this.button3.BackColor = System.Drawing.Color.Indigo;
+            this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button3.Location = new System.Drawing.Point(871, 438);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(129, 23);
+            this.button3.Size = new System.Drawing.Size(129, 36);
             this.button3.TabIndex = 24;
             this.button3.Text = "Detect Interval";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Startup
@@ -359,7 +363,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ClientSize = new System.Drawing.Size(1049, 467);
+            this.ClientSize = new System.Drawing.Size(1049, 485);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);

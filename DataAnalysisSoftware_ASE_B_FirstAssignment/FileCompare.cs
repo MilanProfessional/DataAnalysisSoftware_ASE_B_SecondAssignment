@@ -25,13 +25,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         
         private void button1_Click(object sender, EventArgs e)
         {
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                fileOneText = File.ReadAllText(openFileDialog1.FileName);
-                string path = Path.GetFullPath(openFileDialog1.FileName);
-                textBox1.Text = path;
-            }
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -164,6 +158,17 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                fileOneText = File.ReadAllText(openFileDialog1.FileName);
+                string path = Path.GetFullPath(openFileDialog1.FileName);
+                textBox1.Text = path;
+            }
         }
     }
 }

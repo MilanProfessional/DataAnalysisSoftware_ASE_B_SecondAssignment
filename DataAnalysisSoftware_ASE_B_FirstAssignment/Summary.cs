@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
-    class Summary
+    public class Summary
     {
         public static int FindMax(List<string> value)
         {
