@@ -44,10 +44,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
             this.label1.Location = new System.Drawing.Point(5, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 15);
+            this.label1.Size = new System.Drawing.Size(236, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Select Speed interval";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -55,7 +55,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(161, 38);
+            this.comboBox1.Location = new System.Drawing.Point(12, 71);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(364, 21);
             this.comboBox1.TabIndex = 1;
@@ -64,7 +64,7 @@
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(8, 65);
+            this.dataGridView2.Location = new System.Drawing.Point(10, 98);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(517, 94);
             this.dataGridView2.TabIndex = 20;
@@ -96,7 +96,7 @@
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -114,7 +114,7 @@
             this.developerInfoToolStripMenuItem.BackColor = System.Drawing.Color.SkyBlue;
             this.developerInfoToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.developerInfoToolStripMenuItem.Name = "developerInfoToolStripMenuItem";
-            this.developerInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.developerInfoToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.developerInfoToolStripMenuItem.Text = "Developer Info";
             this.developerInfoToolStripMenuItem.Click += new System.EventHandler(this.developerInfoToolStripMenuItem_Click);
             // 
@@ -132,7 +132,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ClientSize = new System.Drawing.Size(531, 170);
+            this.ClientSize = new System.Drawing.Size(531, 200);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);

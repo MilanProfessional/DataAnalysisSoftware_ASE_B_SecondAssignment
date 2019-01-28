@@ -24,6 +24,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             }
         }
 
+        //initializing grid row
         private void InitGrid()
         {
             dataGridView2.ColumnCount = 10;

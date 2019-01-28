@@ -30,7 +30,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         {
 
         }
-
+        /// <summary>
+        /// making help tool working by adding message box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Data Analysis Software By:" + Environment.NewLine +
@@ -66,6 +70,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 
             this.Hide();
             new Startup().Show();
+        }
+
+        private void HomePage_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

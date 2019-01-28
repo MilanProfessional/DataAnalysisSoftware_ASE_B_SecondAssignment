@@ -8,6 +8,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
     public class FileConvertor
     {
+        /// <summary>
+        /// Split text
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public string[] SplitString(string text)
         {
             var splitString = GetParams();
@@ -17,11 +22,21 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return splittedText;
         }
 
+        /// <summary>
+        /// Splitting data by enter
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public string[] SplitStringByEnter(string text)
         {
             return text.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
         }
 
+        /// <summary>
+        /// Split text by space
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public string[] SplitStringBySpace(string text)
         {
             var formattedText = string.Join(" ", text.Split().Where(x => x != ""));

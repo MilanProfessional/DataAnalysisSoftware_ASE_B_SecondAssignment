@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace DataAnalysisSoftware_ASE_B_FirstAssignment.Tests
 {
+    /// <summary>
+    /// testing of the max value,min value ,average value,sum from the data
+    /// </summary>
     [TestClass()]
     public class SummaryTests
     {
+        //to test if the method find max or not
         [TestMethod()]
         public void FindMaxTest()
         {
@@ -18,6 +22,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment.Tests
             Assert.AreEqual(18, maxValue);
         }
 
+        //to test if the methods find min or not
         [TestMethod()]
         public void FindMinTest()
         {
@@ -25,6 +30,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment.Tests
             Assert.AreEqual(4, val);
         }
 
+        //to test if the methods find average or not
         [TestMethod()]
         public void FindAverageTest()
         {
@@ -32,13 +38,15 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment.Tests
             Assert.AreEqual(12, val);
         }
 
+        //to test if the methods find sum or not
         [TestMethod()]
         public void FindSumTest()
         {
-            int val = Summary.FindSum(new List<string> { "15", "10", "4", "18", "16" });
+            double val = Summary.FindSum(new List<string> { "15", "10", "4", "18", "16" });
             Assert.AreEqual(63, val);
         }
 
+        ////to test if the methods converts date into vaid format or not
         [TestMethod()]
         public void ConvertToDate()
         {

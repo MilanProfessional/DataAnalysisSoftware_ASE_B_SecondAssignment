@@ -8,8 +8,14 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
     class IntervalDetection
     {
+        /// <summary>
+        /// Detects total number of the interval and returns array
+        /// </summary>
+        /// <param name="_hrData"></param>
+        /// <returns></returns>
         public Dictionary<string, object> GetIntervalDetectedData(Dictionary<string, object> _hrData)
         {
+
             var splittingString = GetSplittedString(_hrData);
             var list = new Dictionary<string, object>();
 
@@ -63,6 +69,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return list;
         }
 
+        /// <summary>
+        /// detects the interval 
+        /// </summary>
+        /// <param name="_hrData"></param>
+        /// <returns></returns>
         public List<string> GetSplittedString(Dictionary<string, object> _hrData)
         {
             var speedData = _hrData["speed"] as List<string>;

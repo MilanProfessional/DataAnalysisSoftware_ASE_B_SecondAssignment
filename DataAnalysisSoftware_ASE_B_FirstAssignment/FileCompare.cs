@@ -28,6 +28,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
            
         }
 
+        /// <summary>
+        /// Opening File and showing its name in the text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog2.ShowDialog();
@@ -50,12 +55,17 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             var firstTableData = new TableFiller().FillTable(fileOneText, dataGridView1);
             var secondTableData = new TableFiller().FillTable(fileTwoText, dataGridView2);
 
+
+            //show data using data grid view
             dataGridView3.Rows.Add(new TableFiller().FillDataInSumaryTable(firstTableData, firstTableData["endTime"] as string, firstTableData["params"] as Dictionary<string, string>));
             dataGridView3.Rows.Add(new TableFiller().FillDataInSumaryTable(secondTableData, secondTableData["endTime"] as string, secondTableData["params"] as Dictionary<string, string>));
             //dataGridView3.Rows.Add(new TableFiller().FillDataInSumaryTable(firstTableData, firstTableData["params"] as Dictionary<string, string>, firstTableData["endTime"] as string));
             //dataGridView3.Rows.Add(new TableFiller().FillDataInSumaryTable(secondTableData, secondTableData["params"] as Dictionary<string, string>, secondTableData["endTime"] as string));
         }
 
+        /// <summary>
+        /// to inatialized grid
+        /// </summary>
         private void InitGrid()
         {
             //try

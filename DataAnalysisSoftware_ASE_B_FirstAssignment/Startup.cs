@@ -47,6 +47,12 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
         //    return formattedText.Split(' ');
         //}
 
+
+            /// <summary>
+            /// making open tool working
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -57,14 +63,15 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 string text = File.ReadAllText(openFileDialog1.FileName);
                 Dictionary<string, object> hrData = new TableFiller().FillTable(text, dataGridView1);
                 _hrData = hrData.ToDictionary(k => k.Key, k => k.Value as List<string>);
-                // lblStartTime.Text = "Start Time" + "= " + Regex.Replace(_param["StartTime"], @"\t|\n|\r", "") + " ";
-                //lblInterval.Text = "Interval" + "= " + Regex.Replace(_param["Interval"], @"\t|\n|\r", "") + " Sec ";
-                ///*lblStartTimeUnit.Show();*/
-                //lblMonitor.Text = "Monitor" + "= " + Regex.Replace(_param["Monitor"], @"\t|\n|\r", "") + " ";
-                //lblSMode.Text = "SMode" + "= " + _param["SMode"];
-                //lblDate.Text = "Date" + "= " + ConvertToDate(_param["Date"]);
-                //lblLength.Text = "Length" + "= " + _param["Length"];
-                //lblWeight.Text = "Weight" + "= " + Regex.Replace(_param["Weight"], @"\t|\n|\r", "") + " KG";
+                var param = hrData["params"] as Dictionary<string, string>;
+                //header file
+                lblStartTime.Text = lblStartTime.Text + "= " + param["StartTime"];
+                lblInterval.Text = lblInterval.Text + "= " + Regex.Replace(param["Interval"], @"\t|\n|\r", "") + " Sec ";
+                lblMonitor.Text = lblMonitor.Text + "= " + param["Monitor"];
+                lblSMode.Text = lblSMode.Text + "= " + param["SMode"];
+                lblDate.Text = lblDate.Text + "= " + param["Date"];
+                lblLength.Text = lblLength.Text + "= " + param["Length"];
+                lblWeight.Text = lblWeight.Text + "= " + Regex.Replace(param["Weight"], @"\t|\n|\r", "") + " KG";
 
                 //Fetching Smode Data from file
 
@@ -90,9 +97,6 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 double pb = metricsCalculation.CalculatePowerBalance(hrData);
                 label3.Text = "Power balance = " + Summary.RoundUp(pb, 2);
 
-
-
-                var param = hrData["params"] as Dictionary<string, string>;
                 var sMode = param["SMode"];
                 for (int i = 0; i < sMode.Length; i++)
                 {
@@ -249,6 +253,12 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             //    checkBox2.Checked = true;
             //}
         }
+
+        /// <summary>
+        /// to convert date in format
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         private string ConvertToDate(string date)
         {
             string year = "";
@@ -275,6 +285,9 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return convertedDate;
         }
 
+        /// <summary>
+        /// to show data in grid view
+        /// </summary>
         private void InitGrid()
         {
 
@@ -300,6 +313,10 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             dataGridView2.Columns[9].Name = "Maximum altitude(m/ft)";
         }
 
+        /// <summary>
+        /// to calculate speed and convert km into mile and viceversa
+        /// </summary>
+        /// <param name="type"></param>
         private void CalculateSpeed(string type)
         {
             if (_hrData.Count > 0)
@@ -554,8 +571,97 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             }
 
 
+        }
+        Dictionary<string, object> list = new Dictionary<string, object>();
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string val = textBox1.Text;
+            int value;
+            if (int.TryParse(val, out value))
+            {
+                int count = 0;
+                try
+                {
+                    count = ((List<string>)data["speed"]).Count;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Please select a row first");
+                }
+
+                int portion = count / Convert.ToInt32(val);
+
+                var cadenceData = data["cadence"] as List<string>;
+                var altitudeData = data["altitude"] as List<string>;
+                var heartRateData = data["heartRate"] as List<string>;
+                var wattData = data["watt"] as List<string>;
+                var speedData = data["speed"] as List<string>;
+
+                var newCadenceData = new List<string>();
+                var newAltitudeData = new List<string>();
+                var newHeartRateData = new List<string>();
+                var newWattData = new List<string>();
+                var newSpeedData = new List<string>();
+
+                int num = 0;
+                int portionNumber = 0;
+
+                for (int i = 0; i < count; i++)
+                {
+                    num++;
+                    newCadenceData.Add(cadenceData[i]);
+                    newAltitudeData.Add(altitudeData[i]);
+                    newHeartRateData.Add(heartRateData[i]);
+                    newWattData.Add(wattData[i]);
+                    newSpeedData.Add(speedData[i]);
+
+                    if (num == portion)
+                    {
+                        num = 0;
+                        portionNumber++;
+
+                        var listData = new Dictionary<string, List<string>>();
+                        listData.Add("cadence", newCadenceData);
+                        listData.Add("altitude", newAltitudeData);
+                        listData.Add("heartRate", newHeartRateData);
+                        listData.Add("watt", newWattData);
+                        listData.Add("speed", newSpeedData);
+
+                        list.Add("data" + portionNumber, listData);
+
+                        newCadenceData = new List<string>();
+                        newAltitudeData = new List<string>();
+                        newHeartRateData = new List<string>();
+                        newWattData = new List<string>();
+                        newSpeedData = new List<string>();
+                    }
+
+                }
+
+                comboBox1.Items.Clear();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    comboBox1.Items.Add("Portion " + (i + 1));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid number between 0 - 9");
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = comboBox1.SelectedIndex + 1;
+
+            dataGridView2.Rows.Clear();
+
+            var a = list["data" + selectedIndex] as Dictionary<string, List<string>>;
+            var b = a.ToDictionary(k => k.Key, k => k.Value as object);
 
 
+            var data = new TableFiller().FillDataInSumaryTable(b, "19:12:15", null);
+            dataGridView2.Rows.Add(data);
         }
     }
 

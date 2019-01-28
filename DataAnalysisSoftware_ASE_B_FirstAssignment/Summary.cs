@@ -8,6 +8,12 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
     public class Summary
     {
+
+        /// <summary>
+        /// to find maximum value from array
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int FindMax(List<string> value)
         {
             int maxValue = 0;
@@ -20,6 +26,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return maxValue;
         }
 
+        /// <summary>
+        /// to find minimum value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int FindMin(List<string> value)
         {
             int minValue = Convert.ToInt16(value.ElementAt(0));
@@ -32,6 +43,12 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return minValue;
         }
 
+
+        /// <summary>
+        /// to find avarage value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static double FindAverage(List<string> value)
         {
             int average = 0;
@@ -44,6 +61,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return average / value.Count;
         }
 
+        /// <summary>
+        /// To find sum
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static double FindSum(List<string> list)
         {
             double sum = 0;
@@ -56,6 +78,11 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return sum;
         }
 
+        /// <summary>
+        /// to make date in a proper format
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public static string ConvertToDate(string date)
         {
             string year = "";
@@ -77,6 +104,12 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             return convertedDate;
         }
 
+        /// <summary>
+        /// to round up into required decimal
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="places"></param>
+        /// <returns></returns>
         public static double RoundUp(double input, int places)
         {
             double multiplier = Math.Pow(10, Convert.ToDouble(places));

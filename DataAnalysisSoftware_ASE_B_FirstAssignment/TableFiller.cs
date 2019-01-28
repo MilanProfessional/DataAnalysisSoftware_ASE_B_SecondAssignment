@@ -9,6 +9,13 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
 {
     class TableFiller
     {
+        /// <summary>
+        /// to display data in summary table
+        /// </summary>
+        /// <param name="_hrData"></param>
+        /// <param name="endTime"></param>
+        /// <param name="_param"></param>
+        /// <returns></returns>
         //public string[] FillDataInSumaryTable(Dictionary<string, object> _hrData, Dictionary<string, string> _param, string endTime)
         public string[] FillDataInSumaryTable(Dictionary<string, object> _hrData, string endTime, Dictionary<string, string> _param = null)
         {
@@ -40,6 +47,13 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             string[] summarydata = new string[] { totalDistanceCovered, averageSpeed, maxSpeed, averageHeartRate, maximumHeartRate, minHeartRate, averagePower, maxPower, averageAltitude, maximumAltitude };
             return summarydata;
         }
+
+        /// <summary>
+        /// to display data in list using table
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="dataGridView"></param>
+        /// <returns></returns>
         public Dictionary<string, object> FillTable(string text, DataGridView dataGridView = null)
         {
             FileConvertor c = new FileConvertor();
