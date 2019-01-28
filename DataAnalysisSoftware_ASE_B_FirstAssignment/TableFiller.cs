@@ -64,7 +64,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
             List<string> speed = new List<string>();
             string endTime = "";
             DateTime dateTime = DateTime.Parse(param["StartTime"]);
-            int temp = 0;
+            //int temp = 0;
             foreach (var data in splittedHrData)
             {
                 var value = c.SplitStringBySpace(data);
@@ -76,7 +76,7 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                     watt.Add(value[3]);
                     speed.Add(value[4]);
                     int interval = Convert.ToInt32(param["Interval"]);
-                    if (temp > 2) dateTime = dateTime.AddSeconds(Convert.ToInt32(param["Interval"]));
+                    dateTime = dateTime.AddSeconds(Convert.ToInt32(param["Interval"]));
                     endTime = dateTime.TimeOfDay.ToString();
                     List<string> tableData = new List<string>();
                     tableData.Add(value[0]);

@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedCalculationOfMatrix.cs" />
     <Compile Include="DetectInterval.cs">
       <SubType>Form</SubType>
     </Compile>

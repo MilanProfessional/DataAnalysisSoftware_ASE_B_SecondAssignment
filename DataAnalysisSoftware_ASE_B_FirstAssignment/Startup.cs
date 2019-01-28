@@ -74,6 +74,24 @@ namespace DataAnalysisSoftware_ASE_B_FirstAssignment
                 List<string> heartRate = new List<string>();
                 List<string> watt = new List<string>();
                 List<string> speed = new List<string>();
+
+                var metricsCalculation = new AdvancedCalculationOfMatrix();
+
+                //advance mettrics calculation
+                double np = metricsCalculation.CalculateNormalizedPower(hrData);
+                label4.Text = "Normalized power = " + Summary.RoundUp(np, 2);
+
+                double ftp = metricsCalculation.CalculateFunctionalThresholdPower(hrData);
+                label5.Text = "Training Stress Score = " + Summary.RoundUp(ftp, 2);
+
+                double ifa = metricsCalculation.CalculateIntensityFactor(hrData);
+                label6.Text = "Intensity Factor = " + Summary.RoundUp(ifa, 2);
+
+                double pb = metricsCalculation.CalculatePowerBalance(hrData);
+                label3.Text = "Power balance = " + Summary.RoundUp(pb, 2);
+
+
+
                 var param = hrData["params"] as Dictionary<string, string>;
                 var sMode = param["SMode"];
                 for (int i = 0; i < sMode.Length; i++)
